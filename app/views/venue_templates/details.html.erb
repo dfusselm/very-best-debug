@@ -23,7 +23,7 @@
 
   <dt>Edit venue</dt>
   <dd>
-    <form action="/update_venue/<%= @the_venue.id %>">
+    <form action="/update_venue/<%= @the_venue.id %>" method = "post">
       <label for="browser_venue">Address</label>
       <input id="browser_venue" type="text" name="query_address" value="<%= @the_venue.address %>" placeholder="Enter an address...">
       
@@ -54,18 +54,22 @@
     <th>Posted</th>
   </tr>
 
-  <% @the_venue.comments.each do |comment| %>
+  <% comments = Comment.where({:venue_id => @the_venue
+  <% @the_venue.comments.each do |a_comment| %>
+
   <tr>
     <td>
-      <%= comment.commenter.username %>
+      <%matching_commenter = User.where({:id => a_comment.author_id}).first %>
+      <%= matching_commenter.username  %>
+
     </td>
 
     <td>
-      <%= comment.body %>
+      <%= a_comment.body %>
     </td>
 
     <td>
-      <%= comment.created_at %>
+      <%= a_comment.created_at %>
     </td>
   </tr>
   
@@ -74,7 +78,7 @@
 
 <h3>Add a new comment</h3>
 
-<form action="/insert_comment_record">
+<form action="/insert_comment_record" method = "post">
   <label for="browser_venue_id">Venue ID</label>
   <input id="browser_venue_id" type="text" value="<%= @the_venue.id %>" name="query_venue_id">
 
