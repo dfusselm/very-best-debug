@@ -54,14 +54,14 @@
     <th>Posted</th>
   </tr>
 
-  <% comments = Comment.where({:venue_id => @the_venue
+  <%# comments = Comment.where({:venue_id => @the_venue.id}) %>
   <% @the_venue.comments.each do |a_comment| %>
 
   <tr>
     <td>
-      <%matching_commenter = User.where({:id => a_comment.author_id}).first %>
-      <%= matching_commenter.username  %>
-
+      <%# matching_commenter = User.where({:id => a_comment.author_id}).first %>
+      <%#= matching_commenter.username  %>
+      <%= a_comment.commenter.username %>
     </td>
 
     <td>
